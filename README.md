@@ -1,64 +1,56 @@
 # Code-Store
-Code Snippets and Documentation for Power BI Projects
+Overview
+This project is a utility designed to analyze Power BI projects (specifically .pbip format). It extracts and maps metadata across Bookmarks, Pages, and Visuals using a combination of Python and Java. The final output is an Excel file containing consolidated tabs for detailed report analysis.
 
-Code-Store helps you extract and decode metadata from Power BI project files (.pbip) and Visual Log files from your browser, combining them into a human-readable tabular format. This makes analyzing and understanding Power BI reports faster and much more intuitive.
+**Prerequisites**
 
-🚀 Features
+File Format: The Power BI file must be saved as a .pbip (Power BI Project) format.
 
-- Parse .pbip files to extract visuals, pages, bookmarks, and filters.
+Note: Do not use .pbix or .pbir files directly.
 
-- Decode visual types, IDs, and settings into readable formats.
+**Code Structure**
+The project consists of the following modules/readers:
 
-- Read browser Visual Log files to map visual IDs to titles.
+- Bookmark Reader
+- Page Reader
+- Bookmark Page Reader
+- Log File Reader
+- Pbip Log Reader (Primary Module)
 
-- Combine all metadata into a comprehensive tabular report.
+**Workflow & Algorithm**
+The process involves a hybrid approach using Python for file parsing and Java/Browser Console for visual extraction.
 
-- Save time by eliminating tedious manual JSON inspection.
+1. Python reads the Bookmarks.
+2. Python reads the Pages.
+3. Java extracts Page IDs from the playground environment.
+4. Java searches for the extracted Page IDs and identifies the visuals within those pages from the playground.
+5. Open the browser console and drop down the logs generated in Step 4 regarding the visuals.
+6. Save these browser logs as a .log file.
+7. Python reads the saved visual .log file.
+8. Add Page Name into the Bookmarks tab (sourced from Visuals).
+9. Add Visual Title into both the Bookmarks and Page tabs (sourced from Visuals).
+10. Return a final Excel file containing three tabs: Bookmarks, Pages, and Visuals.
 
-📝 Use Case: 
+```text
++-----------------------+          +-----------------------+          +-----------------------+
+|       BOOKMARKS       |          |         PAGE          |          |        VISUALS        |
+|     (PBIP Folders)    |          |     (PBIP Folders)    |          |    (PBI Playground)   |
++-----------------------+          +-----------------------+          +-----------------------+
+| Bookmark ID           |<-------->| Page ID               |          | Page ID               |
+| Bookmark Name         | ID Match | Page Name             |          | Page Name (Visual)    |
+| Visual ID             |          | Visual ID             |          | Type (Visual Type)    |
+| Visual Type           |          | Visual Type           |          | Title (Visual Title)  |
+| Selected Visual       |          | Action Type           |          +-----------------------+
+| Applied Filters       |          |                       |                      |
+| Slicer Selections     |          |                       |                      |
+|                       |          |                       |                      |
+| Visual Title <--------|----------|--- Visual Title <-----|----------------------+
+| Page Name <-----------|----------|-----------------------+
+| Mode                  |          |
++-----------------------+          +-----------------------+
+```
 
-You are a Power BI developer tasked with building a complex report. The report has:
-
-- Multiple pages for different regions and product categories.
-
-- Several charts and slicers per page.
-
-- Bookmarks for quick navigation between insights.
-
-- Filters applied at visual and page levels.
-
-You carefully place every visual on the report, connect it to the right dataset, configure the filters, and finalize bookmarks. The report looks perfect on your screen.
-
-Days pass by and now you or a teammate need to audit or understand the report behind the scenes. You open the .pbip file and your memory about the report construction is not that fresh.
-
-- The file is a maze of JSON. Every visual has a VisualID but most have generic visual names like slicer or chart.
-
-- You have five slicers on the first page. Which one is the “Region Selector” and which one is the “Product Filter”?
-
-- Bookmarks and filters are buried deep in nested JSON objects. Understanding what each bookmark does is tedious.
-
-You think: “There has to be a better way…”
-
-Then you remember that Power BI Playground logs every visual interaction in your browser. The logs contain human-readable visual titles and page IDs, but they are messy and hard to read directly. Opening the log feels like deciphering an ancient scroll.
-
-This is where Code-Store can help piece everything together:
-
-- It reads the .pbip file and extracts visuals, pages, filters, and bookmarks.
-
-- It reads the browser log file and maps visual IDs to actual visual titles.
-
-- It combines everything into a clean tabular report, so you can instantly see:
-
-    - Which visual belongs to which page
-
-    - What type of visual is it
-
-    - Its filters and settings
-
-    - Associated bookmarks
-      
-    - Associated tooltips 
-
-And so many more details.
-
-Now, instead of hours of manual JSON digging, you have a single table that tells the whole story of your report.
+ Mappings:
+ - ID Match: Links Bookmark ID to Page ID.
+ - Visual Title: Extracted from Visuals populated in Page and Bookmarks.
+ - Page Name: Extracted from Visuals populated in Bookmarks.
