@@ -40,13 +40,13 @@ The process involves a hybrid approach using Python for file parsing and Java/Br
 | Bookmark Name         | ID Match | Page Name             |          | Page Name (Visual)    |
 | Visual ID             |          | Visual ID             |          | Type (Visual Type)    |
 | Visual Type           |          | Visual Type           |          | Title (Visual Title)  |
-| Selected Visual       |          | Action Type           |          +-----------------------+
+| Mode                  |          | Action Type           |          +-----------------------+
+| Selected Visual       |          |                       |                      |
 | Applied Filters       |          |                       |                      |
 | Slicer Selections     |          |                       |                      |
 |                       |          |                       |                      |
 | Visual Title <--------|----------|--- Visual Title <-----|----------------------+
 | Page Name <-----------|----------|-----------------------+
-| Mode                  |          |
 +-----------------------+          +-----------------------+
 ```
 
