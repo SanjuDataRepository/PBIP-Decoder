@@ -274,6 +274,3 @@ if __name__ == "__main__":
     folder = r"C:\Path\To\Your\Bookmarks"
     out_xlsx = "bookmarks log.xlsx"
     parse_bookmarks_folder(folder, out_xlsx)
-
-
-# r"C:\\Path\\To\\Your\\Bookmarks"  # Change this
