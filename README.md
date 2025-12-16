@@ -1,4 +1,4 @@
-# Code-Store
+# PBIP Decoder
 Overview
 This project is a utility designed to analyze Power BI projects (specifically .pbip format). It extracts and maps metadata across Bookmarks, Pages, and Visuals using a combination of Python and Java. The final output is an Excel file containing consolidated tabs for detailed report analysis.
 
