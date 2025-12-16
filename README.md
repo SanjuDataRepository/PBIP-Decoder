@@ -8,9 +8,8 @@ File Format: The Power BI file must be saved as a .pbip (Power BI Project) forma
 
 Report must be published: Power BI Report must be published to a workspace (Other than My Workspace)
 
-Note: Do not use .pbix or .pbir files directly.
-
 **Code Structure**
+
 The project consists of the following modules/readers:
 
 - Bookmark Reader
@@ -21,7 +20,8 @@ The project consists of the following modules/readers:
 - Pbip Reader (Primary Module)
 
 **Workflow & Algorithm**
-The process involves a hybrid approach using Python for file parsing and Java/Browser Console for visual extraction.
+
+This process involves a hybrid approach using Python for file parsing and Java/Browser Console for visual extraction.
 
 1. Python reads the Bookmarks.
 2. Python reads the Pages.
